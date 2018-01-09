@@ -10,37 +10,50 @@ import os
 import datetime
 import logging
 import json
+from multiprocessing import Process, Pipe
 
 import boto3
-
-from scrapy.crawler import CrawlerProcess
-from scrapy.utils.project import get_project_settings
-
-logger = logging.getLogger(__name__)
-logger.setLevel(logging.INFO)
 
 from twisted.internet import reactor
 import scrapy
 from scrapy.crawler import CrawlerRunner
 from scrapy.utils.log import configure_logging
+from scrapy.utils.project import get_project_settings
 
-# from hy_scraper.spiders import OpintoniSpider
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.WARNING)
 
 def crawl(event, context):
-  # process = CrawlerProcess(get_project_settings())
-
   start = datetime.datetime.utcnow()
   logger.info('Crawling started: {}'.format(datetime.datetime.now().time()))
 
   configure_logging({'LOG_FORMAT': '%(levelname)s: %(message)s'})
-  runner = CrawlerRunner(get_project_settings())
 
-  d = runner.crawl('opintoni_spider')
-  d.addBoth(lambda _: reactor.stop())
-  reactor.run() # the script will block here until the crawling is finished
+# Well this is just insane. But oh well it works. (I hope)
+# https://stackoverflow.com/questions/41495052/scrapy-reactor-not-restartable
+# https://aws.amazon.com/blogs/compute/parallel-processing-in-python-with-aws-lambda/
+  def f(q):
+    try:
+      runner = CrawlerRunner(get_project_settings())
+      deferred = runner.crawl('opintoni_spider')
+      deferred.addBoth(lambda _: reactor.stop())
+      reactor.run()
+      input_p.send(None)
+      # q.put(None)
+    except Exception as e:
+      input_p.send(e)
+      # q.put(e)
 
-  # process.crawl('opintoni_spider')
-  # process.start() # the script will block here until the crawling is finished
+  # q = Queue()
+  output_p, input_p = Pipe()
+  # p = Process(target=f, args=(q,))
+  p = Process(target=f, args=((output_p, input_p),))
+  p.start()
+  # result = q.get()
+  p.join()
+
+  # if result is not None:
+  #   raise result
 
   end = datetime.datetime.utcnow()
   logger.info('Crawling took {} h:m:s:ms'.format(str(end - start)))
