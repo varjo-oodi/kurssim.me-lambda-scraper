@@ -19,8 +19,9 @@ Also you need Docker if you want to deploy to AWS. Yeah...
 4) Generate virtual environment: `virtualenv venv`
 5) Activate virtual environment: `source venv/bin/activate`
 6) Before invoking the lambda if you want to upload the file to S3 you need to have AWS account locally with permissions to a bucket
-7) Then you should invoke the Lambda locally: `export AWS_PROFILE=<your-profile> && sls invoke local --function crawl --stage local --uploadBucket <your-bucket>` where you should replace the profile and bucket with your values.
+7) Then you should invoke the Lambda locally: `sls invoke local --function crawl --aws-profile <your-profile> --stage local --bucket <your-bucket>` where you should replace the profile and bucket with your values.
 8) If you don't want to upload to S3 you can use: `sls invoke local --function crawl --stage local`
+9) If you want to upload the whole CloudFormation stack to AWS then you should have admin permissions on your local AWS profile and then use: `serverless deploy --aws-profile <your-profile> --stage dev --bucket <your-bucket>`
 
 # Additional information
 

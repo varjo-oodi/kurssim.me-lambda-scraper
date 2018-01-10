@@ -1,3 +1,3 @@
 #!/bin/bash
 
-serverless deploy --aws-profile kurssim.me-admin --uploadBucket kurssim.me --stage prod
+serverless deploy --aws-profile kurssim.me-admin --stage prod --bucket kurssim.me

@@ -7,25 +7,25 @@ sys.modules["sqlite"] = imp.new_module("sqlite")
 sys.modules["sqlite3.dbapi2"] = imp.new_module("sqlite.dbapi2")
 
 import os
-import datetime
+# import datetime
 import logging
-import json
 from multiprocessing import Process, Pipe
 
 import boto3
 
 from twisted.internet import reactor
-import scrapy
 from scrapy.crawler import CrawlerRunner
 from scrapy.utils.log import configure_logging
 from scrapy.utils.project import get_project_settings
 
-logger = logging.getLogger(__name__)
-logger.setLevel(logging.WARNING)
+# TODO enable this
+# logger = logging.getLogger(__name__)
+# logger.setLevel(logging.WARNING)
 
 def crawl(event, context):
-  start = datetime.datetime.utcnow()
-  logger.info('Crawling started: {}'.format(datetime.datetime.now().time()))
+  # TODO this loggings don't work probably because of the Pipes & Processes below
+  # start = datetime.datetime.utcnow()
+  # logger.info('Crawling started: {}'.format(datetime.datetime.now().time()))
 
   configure_logging({'LOG_FORMAT': '%(levelname)s: %(message)s'})
 
@@ -47,5 +47,5 @@ def crawl(event, context):
   p.start()
   p.join()
 
-  end = datetime.datetime.utcnow()
-  logger.info('Crawling took {} h:m:s:ms'.format(str(end - start)))
+  # end = datetime.datetime.utcnow()
+  # logger.info('Crawling took {} h:m:s:ms'.format(str(end - start)))

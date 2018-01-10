@@ -5,17 +5,19 @@ provider:
   runtime: python3.6
   memorySize: 512
   timeout: 150
+  stage: ${opt:stage}
   region: eu-central-1
-  uploadBucket: kurssim.me
+  bucket: ${opt:bucket}
   environment:
-    BUCKET_NAME: ${self:provider.uploadBucket}
+    BUCKET_NAME: ${self:provider.bucket}
+    SERVERLESS_STAGE: ${opt:stage}
   iamRoleStatements:
     - Effect: "Allow"
       Action:
         - "s3:PutObject"
         - "s3:PutObjectAcl"
       Resource:
-        - "arn:aws:s3:::${self:provider.uploadBucket}/hy_courses.json"
+        - "arn:aws:s3:::${self:provider.bucket}/hy_courses.json"
 
 custom:
   pythonRequirements:
