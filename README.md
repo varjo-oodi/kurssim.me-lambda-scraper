@@ -24,7 +24,7 @@ Also you need Docker if you want to deploy to AWS. Yeah...
 
 # Additional information
 
-You should comment: `- schedule: rate(24 hours)` from the `serverless.yml` unless you want to wait 24 hours between your CloudWatch events. Instead you should comment out the block on top of it so you can try invoke the crawler just by visiting your API endpoint (it's displayed on your console after deploying).
+You can trigger the Lambda manually by going to your AWS Console's Lambda page and creating & sending a test event.
 
 # TODO
 

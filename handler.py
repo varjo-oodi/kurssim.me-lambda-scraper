@@ -39,21 +39,13 @@ def crawl(event, context):
       deferred.addBoth(lambda _: reactor.stop())
       reactor.run()
       input_p.send(None)
-      # q.put(None)
     except Exception as e:
       input_p.send(e)
-      # q.put(e)
 
-  # q = Queue()
   output_p, input_p = Pipe()
-  # p = Process(target=f, args=(q,))
   p = Process(target=f, args=((output_p, input_p),))
   p.start()
-  # result = q.get()
   p.join()
-
-  # if result is not None:
-  #   raise result
 
   end = datetime.datetime.utcnow()
   logger.info('Crawling took {} h:m:s:ms'.format(str(end - start)))

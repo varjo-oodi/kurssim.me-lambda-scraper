@@ -6,7 +6,7 @@ provider:
   memorySize: 512
   timeout: 150
   region: eu-central-1
-  uploadBucket: kurssimme-testi-buckit-2
+  uploadBucket: kurssim.me
   environment:
     BUCKET_NAME: ${self:provider.uploadBucket}
   iamRoleStatements:
@@ -28,17 +28,7 @@ functions:
       include:
         - hy_scraper/**/*.py
     events:
-      # - http:
-      #     path: crawl
-      #     method: get
-      - schedule: rate(4 minutes)
-
-resources:
- Resources:
-   NewResource:
-     Type: AWS::S3::Bucket
-     Properties:
-       BucketName: ${self:provider.uploadBucket}
+      - schedule: rate(24 hours)
 
 plugins:
   - serverless-python-requirements
