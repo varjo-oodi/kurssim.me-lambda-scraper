@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Scrapy settings for hy_scraper project
+# Scrapy settings for hy_course_scraper project
 #
 # For simplicity, this file contains only settings considered important or
 # commonly used. You can find more settings consulting the documentation:
@@ -9,14 +9,14 @@
 #     http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html
 #     http://scrapy.readthedocs.org/en/latest/topics/spider-middleware.html
 
-BOT_NAME = 'hy_scraper'
+BOT_NAME = 'hy_course_scraper'
 
-SPIDER_MODULES = ['hy_scraper.spiders']
-NEWSPIDER_MODULE = 'hy_scraper.spiders'
+SPIDER_MODULES = ['hy_course_scraper.spiders']
+NEWSPIDER_MODULE = 'hy_course_scraper.spiders'
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
-#USER_AGENT = 'hy_scraper (+http://www.yourdomain.com)'
+#USER_AGENT = 'hy_course_scraper (+http://www.yourdomain.com)'
 USER_AGENT = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36'
 
 # Obey robots.txt rules
@@ -48,13 +48,13 @@ ROBOTSTXT_OBEY = True
 # Enable or disable spider middlewares
 # See http://scrapy.readthedocs.org/en/latest/topics/spider-middleware.html
 #SPIDER_MIDDLEWARES = {
-#    'hy_scraper.middlewares.HyScraperSpiderMiddleware': 543,
+#    'hy_course_scraper.middlewares.HyScraperSpiderMiddleware': 543,
 #}
 
 # Enable or disable downloader middlewares
 # See http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html
 #DOWNLOADER_MIDDLEWARES = {
-#    'hy_scraper.middlewares.MyCustomDownloaderMiddleware': 543,
+#    'hy_course_scraper.middlewares.MyCustomDownloaderMiddleware': 543,
 #}
 
 # Enable or disable extensions
@@ -63,15 +63,16 @@ ROBOTSTXT_OBEY = True
 #    'scrapy.extensions.telnet.TelnetConsole': None,
 #}
 
+# Required parameter but not used anywhere
 FEED_URI = 's3://testaus-bucket/hy_courses.json'
 FEED_FORMAT='json'
 FEED_STORAGES_BASE = {
-    's3': 'hy_scraper.feedexport.CourseS3FeedStorage'
+    's3': 'hy_course_scraper.feedexport.CourseS3FeedStorage'
 }
 # Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-    'hy_scraper.pipelines.CourseJsonPipeline': 300
+    'hy_course_scraper.pipelines.CourseJsonPipeline': 300
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)

@@ -1,3 +1,3 @@
 #!/bin/bash
 
-scrapy crawl opintoni_spider
+scrapy crawl weboodi_spider

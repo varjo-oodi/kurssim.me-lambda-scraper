@@ -1,7 +1,7 @@
 import scrapy
 import re
 
-from hy_scraper.items import CourseItem
+from hy_course_scraper.items import CourseItem
 
 def strip(text):
   return text.strip() if text else ''
@@ -58,14 +58,16 @@ def parseInt(string):
   numbers = ''.join([x for x in string if x.isdigit()])
   return int(numbers) if numbers else ''
 
-class OpintoniSpider(scrapy.Spider):
-  name = 'opintoni_spider'
+class WeboodiSpider(scrapy.Spider):
+  name = 'weboodi_spider'
   start_urls = [
+    # 'https://courses.helsinki.fi/fi/search/results/field_imp_organisation/hy-matemaattis-luonnontieteellinen-tiedekunta-mltdk-942/field_imp_organisation/matemaattisten-tieteiden-kandiohjelma-1920?&search=&academic_year=2017%20-%202018'
     'https://courses.helsinki.fi/fi/search/results/field_imp_organisation/matemaattis-luonnontieteellinen-tiedekunta-942/field_imp_organisation/tietojenk%C3%A4sittelytieteen-kandiohjelma-1922?search=&academic_year=2017%20-%202018',
     'https://courses.helsinki.fi/fi/search/results/field_imp_organisation/matemaattis-luonnontieteellinen-tiedekunta-942/field_imp_organisation/tietojenk%C3%A4sittelytieteen-maisteriohjelma-1929?search=&academic_year=2017%20-%202018',
     'https://courses.helsinki.fi/fi/search/results/field_imp_organisation/matemaattis-luonnontieteellinen-tiedekunta-942/field_imp_organisation/datatieteen-maisteriohjelma-1931?search=&academic_year=2017%20-%202018'
   ]
   start_fields = ['tkt_kandi', 'tkt_maisteri', 'data_maisteri']
+  # start_fields = ['mat_kandi']
 
   def start_requests(self):
     for i, url in enumerate(self.start_urls):

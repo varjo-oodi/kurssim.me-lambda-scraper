@@ -35,7 +35,7 @@ def crawl(event, context):
   def f(q):
     try:
       runner = CrawlerRunner(get_project_settings())
-      deferred = runner.crawl('opintoni_spider')
+      deferred = runner.crawl('weboodi_spider')
       deferred.addBoth(lambda _: reactor.stop())
       reactor.run()
       input_p.send(None)

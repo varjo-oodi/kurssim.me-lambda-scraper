@@ -9,7 +9,7 @@ import json
 import os
 import scrapy
 from scrapy.exporters import JsonItemExporter
-from hy_scraper.items import CourseItem
+from hy_course_scraper.items import CourseItem
 
 SERVERLESS_STAGE = os.environ.get('SERVERLESS_STAGE')
 
