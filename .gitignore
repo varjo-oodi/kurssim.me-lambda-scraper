@@ -1,9 +1,11 @@
+# Misc and Node
+.vscode/
 .serverless/
-
 node_modules/
 
+# Python stuff
 __pycache__
-
 venv/
 
+# Generated files
 output/

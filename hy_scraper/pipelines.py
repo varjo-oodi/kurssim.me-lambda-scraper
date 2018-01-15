@@ -15,7 +15,7 @@ SERVERLESS_STAGE = os.environ.get('SERVERLESS_STAGE')
 
 class CourseJsonPipeline(object):
     def open_spider(self, spider):
-        if SERVERLESS_STAGE == 'local':
+        if SERVERLESS_STAGE == None or SERVERLESS_STAGE == 'local':
             os.makedirs('output', exist_ok=True)
             self.file_courses = open("output/hy_courses.json", 'wb')
         else:
